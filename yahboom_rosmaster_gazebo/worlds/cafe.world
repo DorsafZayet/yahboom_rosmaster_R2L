@@ -1,0 +1,253 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="cafe">
+
+    <!-- PLUGINS -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- LIGHT -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- GROUND -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 30</size>
+            </plane>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 30</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- CARPET -->
+    <model name="lab_carpet">
+      <static>true</static>
+      <pose>0.5 0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>13 12</size>
+            </plane>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr>
+              <metal>
+                <albedo_map>model://cafe_table/materials/textures/Wood_Floor_Dark.jpg</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- WALLS -->
+    <model name="classroom_walls">
+      <static>true</static>
+      <link name="link">
+
+        <visual name="w1">
+          <pose>-6 0 1.5 0 0 0</pose>
+          <geometry><box><size>0.1 12 3</size></box></geometry>
+        </visual>
+
+        <visual name="w2">
+          <pose>7 0 1.5 0 0 0</pose>
+          <geometry><box><size>0.1 12 3</size></box></geometry>
+        </visual>
+
+        <visual name="w3">
+          <pose>0.5 -6 1.5 0 0 1.57</pose>
+          <geometry><box><size>0.1 13 3</size></box></geometry>
+        </visual>
+
+        <visual name="w4">
+          <pose>0.5 6 1.5 0 0 1.57</pose>
+          <geometry><box><size>0.1 13 3</size></box></geometry>
+        </visual>
+
+        <!-- LOGO WALL 1 -->
+    <visual name="logo_w1">
+      <pose>-5.94 0 1.5 1.57 0 1.57</pose>
+      <geometry>
+        <plane>
+          <normal>0 0 1</normal>
+          <size>12 3</size>
+        </plane>
+      </geometry>
+      <material>
+        <diffuse>1 1 1 1</diffuse>
+        <pbr>
+          <metal>
+            <albedo_map>/home/asus/ros2_ws/images.png</albedo_map>
+          </metal>
+        </pbr>
+      </material>
+    </visual>
+
+    <!-- LOGO WALL 2 -->
+    <visual name="logo_w2">
+      <pose>6.94 0 1.5 1.57 0 -1.57</pose>
+      <geometry>
+        <plane>
+          <normal>0 0 1</normal>
+          <size>12 3</size>
+        </plane>
+      </geometry>
+      <material>
+        <diffuse>1 1 1 1</diffuse>
+        <pbr>
+          <metal>
+            <albedo_map>/home/asus/ros2_ws/images.png</albedo_map>
+          </metal>
+        </pbr>
+      </material>
+    </visual>
+
+    <!-- LOGO WALL 3 -->
+    <visual name="logo_w3">
+      <pose>0.5 -5.94 1.5 1.57 0 3.14</pose>
+      <geometry>
+        <plane>
+          <normal>0 0 1</normal>
+          <size>13 3</size>
+        </plane>
+      </geometry>
+      <material>
+        <diffuse>1 1 1 1</diffuse>
+        <pbr>
+          <metal>
+            <albedo_map>/home/asus/ros2_ws/images.png</albedo_map>
+          </metal>
+        </pbr>
+      </material>
+    </visual>
+
+    <!-- LOGO WALL 4 -->
+    <visual name="logo_w4">
+      <pose>0.5 5.94 1.5 1.57 0 0</pose>
+      <geometry>
+        <plane>
+          <normal>0 0 1</normal>
+          <size>13 3</size>
+        </plane>
+      </geometry>
+      <material>
+        <diffuse>1 1 1 1</diffuse>
+        <pbr>
+          <metal>
+            <albedo_map>/home/asus/ros2_ws/images.png</albedo_map>
+          </metal>
+        </pbr>
+      </material>
+    </visual>
+
+
+      </link>
+    </model>
+
+    <!-- ================= TABLES & CHAIRS ================= -->
+
+    <!-- GAUCHE -->
+    <include><uri>model://real_table</uri><name>t1</name><pose>-2.5 2.4 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c1</name><pose>-3.2 2.4 0 0 0 1.57</pose></include>
+
+    <include><uri>model://real_table</uri><name>t2</name><pose>-2.5 0.8 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c2</name><pose>-3.2 0.8 0 0 0 1.57</pose></include>
+
+    <include><uri>model://real_table</uri><name>t3</name><pose>-2.5 -0.8 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c3</name><pose>-3.2 -0.8 0 0 0 1.57</pose></include>
+
+    <include><uri>model://real_table</uri><name>t4</name><pose>-2.5 -2.4 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c4</name><pose>-3.2 -2.4 0 0 0 1.57</pose></include>
+
+    <!-- HAUT -->
+    <include><uri>model://real_table</uri><name>t5</name><pose>0 3.5 0 0 0 0</pose></include>
+    <include><uri>model://real_chair</uri><name>c5</name><pose>0 4.2 0 0 0 0</pose></include>
+
+    <include><uri>model://real_table</uri><name>t10</name><pose>-1.6 3.5 0 0 0 0</pose></include>
+    <include><uri>model://real_chair</uri><name>c10</name><pose>-1.6 4.2 0 0 0 0</pose></include>
+
+    <include><uri>model://real_table</uri><name>t11</name><pose>1.6 3.5 0 0 0 0</pose></include>
+    <include><uri>model://real_chair</uri><name>c11</name><pose>1.6 4.2 0 0 0 0</pose></include>
+
+    <!-- DROITE -->
+    <include><uri>model://real_table</uri><name>t6</name><pose>2.5 2.4 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c6</name><pose>3.2 2.4 0 0 0 -1.57</pose></include>
+
+    <include><uri>model://real_table</uri><name>t7</name><pose>2.5 0.8 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c7</name><pose>3.2 0.8 0 0 0 -1.57</pose></include>
+
+    <include><uri>model://real_table</uri><name>t8</name><pose>2.5 -0.8 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c8</name><pose>3.2 -0.8 0 0 0 -1.57</pose></include>
+
+    <include><uri>model://real_table</uri><name>t9</name><pose>2.5 -2.4 0 0 0 1.57</pose></include>
+    <include><uri>model://real_chair</uri><name>c9</name><pose>3.2 -2.4 0 0 0 -1.57</pose></include>
+
+    <!-- ================= ACTOR ================= -->
+    <actor name="pedestrian">
+      <pose>-1.0 0.8 0 0 0 0</pose>
+
+      <skin>
+        <filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+
+      <animation name="walking">
+        <filename>https://fuel.gazebosim.org/1.0/Mingfei/models/actor/tip/files/meshes/walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+
+      <link name="pedestrian_link">
+        <pose>0 0 0 0 0 0</pose>
+      </link>
+
+      <plugin filename="gz-sim-trajectory-follower-system"
+        name="gz::sim::systems::TrajectoryFollower">
+        <link_name>pedestrian_link</link_name>
+        <loop>true</loop>
+        <tension>0.8</tension>
+        <v>1.5</v>
+        <w>1.5</w>
+        <waypoint>-2.5 0.8</waypoint>
+        <waypoint>0.0 0.8</waypoint>
+        <waypoint>2.5 0.8</waypoint>
+        <waypoint>0.0 0.8</waypoint>
+        <waypoint>-2.5 0.8</waypoint>
+      </plugin>
+
+    </actor>
+
+  </world>
+</sdf>

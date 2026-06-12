@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="real_chair">
+    <static>true</static>
+    <link name="link">
+      <visual name="assise">
+        <pose>0 0 0.45 0 0 0</pose>
+        <geometry><box><size>0.45 0.45 0.05</size></box></geometry>
+        <material><ambient>0 0.2 0.6 1</ambient><diffuse>0 0.2 0.6 1</diffuse></material>
+      </visual>
+      <visual name="dossier">
+        <pose>0.2 0 0.7 0 0.1 0</pose>
+        <geometry><box><size>0.04 0.4 0.35</size></box></geometry>
+        <material><ambient>0 0.2 0.6 1</ambient><diffuse>0 0.2 0.6 1</diffuse></material>
+      </visual>
+      <visual name="p1"><pose>0.2 0.2 0.22 0 0 0</pose><geometry><cylinder><radius>0.01</radius><length>0.45</length></cylinder></geometry><material><ambient>0 0 0 1</ambient></material></visual>
+      <visual name="p2"><pose>0.2 -0.2 0.22 0 0 0</pose><geometry><cylinder><radius>0.01</radius><length>0.45</length></cylinder></geometry><material><ambient>0 0 0 1</ambient></material></visual>
+      <visual name="p3"><pose>-0.2 0.2 0.22 0 0 0</pose><geometry><cylinder><radius>0.01</radius><length>0.45</length></cylinder></geometry><material><ambient>0 0 0 1</ambient></material></visual>
+      <visual name="p4"><pose>-0.2 -0.2 0.22 0 0 0</pose><geometry><cylinder><radius>0.01</radius><length>0.45</length></cylinder></geometry><material><ambient>0 0 0 1</ambient></material></visual>
+    </link>
+  </model>
+</sdf>

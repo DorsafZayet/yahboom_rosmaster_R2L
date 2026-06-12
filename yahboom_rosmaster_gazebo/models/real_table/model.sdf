@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="real_table">
+    <static>true</static>
+    <link name="link">
+      <!-- Plateau de table -->
+      <visual name="plateau">
+        <pose>0 0 0.73 0 0 0</pose>
+        <geometry><box><size>1.6 0.8 0.03</size></box></geometry>
+        <material>
+          <ambient>0.96 0.87 0.70 1</ambient>
+          <diffuse>0.96 0.87 0.70 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+
+      <!-- Pieds élargis (visual uniquement) -->
+      <visual name="p1">
+        <pose>0.75 0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.04</radius><length>0.7</length></cylinder></geometry>
+        <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+      </visual>
+      <visual name="p2">
+        <pose>0.75 -0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.04</radius><length>0.7</length></cylinder></geometry>
+        <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+      </visual>
+      <visual name="p3">
+        <pose>-0.75 0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.04</radius><length>0.7</length></cylinder></geometry>
+        <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+      </visual>
+      <visual name="p4">
+        <pose>-0.75 -0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.04</radius><length>0.7</length></cylinder></geometry>
+        <material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material>
+      </visual>
+
+      <!-- COLLISION UNIQUEMENT sur le plateau (pas de collision sur les pieds) -->
+      <!-- Cela permet au robot de passer sous la table sans être bloqué par les pieds -->
+      <collision name="collision_top">
+        <pose>0 0 0.73 0 0 0</pose>
+        <geometry><box><size>1.6 0.8 0.05</size></box></geometry>
+      </collision>
+
+      <!-- Option 2 : Si vous voulez que les pieds aient aussi des collisions (robot ne passe pas entre) -->
+      <!-- Décommentez les lignes suivantes pour activer les collisions sur les pieds -->
+      <!--
+      <collision name="collision_p1">
+        <pose>0.75 0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.045</radius><length>0.7</length></cylinder></geometry>
+      </collision>
+      <collision name="collision_p2">
+        <pose>0.75 -0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.045</radius><length>0.7</length></cylinder></geometry>
+      </collision>
+      <collision name="collision_p3">
+        <pose>-0.75 0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.045</radius><length>0.7</length></cylinder></geometry>
+      </collision>
+      <collision name="collision_p4">
+        <pose>-0.75 -0.35 0.35 0 0 0</pose>
+        <geometry><cylinder><radius>0.045</radius><length>0.7</length></cylinder></geometry>
+      </collision>
+      -->
+    </link>
+  </model>
+</sdf>

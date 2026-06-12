@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ======================================================
+       Paramètres des capteurs ultrason
+       Positions aux coins du châssis (à adapter à ton robot)
+  ====================================================== -->
+  <xacro:property name="us_x_front"  value="0.10"  />  <!-- offset avant depuis centre -->
+  <xacro:property name="us_x_rear"   value="-0.10" />  <!-- offset arrière -->
+  <xacro:property name="us_y_left"   value="0.09"  />  <!-- offset gauche -->
+  <xacro:property name="us_y_right"  value="-0.09" />  <!-- offset droit -->
+  <xacro:property name="us_z"        value="0.03"  />  <!-- hauteur sur le châssis -->
+
+  <xacro:property name="us_min_range" value="0.02"  />  <!-- 2 cm -->
+  <xacro:property name="us_max_range" value="4.0"   />  <!-- 4 m -->
+  <xacro:property name="us_fov"       value="0.2618"/>  <!-- 15° en radians -->
+  <xacro:property name="us_update_rate" value="20"  />  <!-- Hz -->
+
+  <!-- ======================================================
+       MACRO générique : un capteur ultrason
+       params : name, parent, x, y, z, yaw
+               yaw = orientation dans le plan horizontal (radians)
+  ====================================================== -->
+  <xacro:macro name="ultrasonic_sensor" params="name parent x y z yaw">
+
+    <!-- Link du capteur (petit bloc visuel) -->
+    <link name="${name}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.04 0.02"/>
+        </geometry>
+        <material name="us_blue">
+          <color rgba="0.1 0.4 0.8 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.04 0.02"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.01"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0"
+                 iyy="1e-6" iyz="0"
+                 izz="1e-6"/>
+      </inertial>
+    </link>
+
+    <!-- Joint fixe : monté sur le châssis, orienté à yaw degrés -->
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child  link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 ${yaw}"/>
+    </joint>
+
+    <!-- Plugin Gazebo Harmonic : gpu_ray sonar -->
+    <gazebo reference="${name}_link">
+      <sensor name="${name}_sensor" type="gpu_lidar">
+        <topic>/ultrasonic/${name}</topic>
+        <update_rate>${us_update_rate}</update_rate>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>5</samples>
+              <resolution>1</resolution>
+              <min_angle>${-us_fov/2}</min_angle>
+              <max_angle>${us_fov/2}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>3</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.05</min_angle>
+              <max_angle>0.05</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${us_min_range}</min>
+            <max>${us_max_range}</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.005</stddev>
+          </noise>
+        </ray>
+        <gz_frame_id>${name}_link</gz_frame_id>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+  <!-- ======================================================
+       Instanciation des 4 capteurs aux coins (45° vers l'ext.)
+       avant-gauche  : yaw =  pi/4   ( +45°)
+       avant-droit   : yaw = -pi/4   ( -45°)
+       arrière-gauche: yaw =  3*pi/4 (+135°)
+       arrière-droit : yaw = -3*pi/4 (-135°)
+  ====================================================== -->
+  <xacro:ultrasonic_sensor
+    name="us_front_left"
+    parent="base_link"
+    x="${us_x_front}" y="${us_y_left}" z="${us_z}"
+    yaw="${pi/4}"/>
+
+  <xacro:ultrasonic_sensor
+    name="us_front_right"
+    parent="base_link"
+    x="${us_x_front}" y="${us_y_right}" z="${us_z}"
+    yaw="${-pi/4}"/>
+
+  <xacro:ultrasonic_sensor
+    name="us_rear_left"
+    parent="base_link"
+    x="${us_x_rear}" y="${us_y_left}" z="${us_z}"
+    yaw="${3*pi/4}"/>
+
+  <xacro:ultrasonic_sensor
+    name="us_rear_right"
+    parent="base_link"
+    x="${us_x_rear}" y="${us_y_right}" z="${us_z}"
+    yaw="${-3*pi/4}"/>
+
+</robot>
