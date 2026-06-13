@@ -1,6 +1,6 @@
 # yahboom_rosmaster_R2L
 
-Projet ROS 2 pour le robot **Yahboom ROSMASTER R2L** — simulation Gazebo, navigation, localisation et contrôle mecanum.
+Projet ROS 2 pour le robot **Yahboom ROSMASTER R2L** — simulation Gazebo, navigation, localisation et contrôle Ackermann.
 
 ---
 
