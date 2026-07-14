@@ -316,6 +316,6 @@ roslaunch yahboomcar_bringup lidar_avoidance.launch
 
 
 ## Auteurs
-
-- **Eya Saafi** — [@Eyasaafi](https://github.com/Eyasaafi)
 - **Dorsaf Zayet** — [@DorsafZayet](https://github.com/DorsafZayet)
+- **Eya Saafi** — [@Eyasaafi](https://github.com/Eyasaafi)
+
